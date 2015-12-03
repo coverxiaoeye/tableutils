@@ -1,0 +1,343 @@
+
+==============================================================================
+../src/hashutils.lua
+==============================================================================
+    	--- tableutil/hashutil: Utility functions for working with hash-like tables
+    	--
+    	-- Peter Aronoff
+    	-- BSD 3-Clause License
+    	-- 2013-2015
+  10	local pairs = pairs
+    	
+    	local foreach = function (func, hash)
+  70	  for key, val in pairs(hash) do
+  60	    func(key, val)
+    	  end
+    	end
+    	
+    	local map = function (func, hash)
+  40	  local mapped = {}
+    	
+ 220	  for key, val in pairs(hash) do
+ 180	    func(key, val, mapped)
+    	  end
+    	
+  40	  return mapped
+    	end
+    	
+    	local reduce = function (func, accumulator, hash)
+  80	  for key, val in pairs(hash) do
+  60	    accumulator = func(accumulator, key, val)
+    	  end
+    	
+  20	  return accumulator
+    	end
+    	
+    	local filter = function (pred, hash)
+  30	  local found = {}
+    	
+ 150	  for key, val in pairs(hash) do
+ 120	    if pred(key, val) then
+  60	      found[key] = val
+    	    end
+    	  end
+    	
+  30	  return found
+    	end
+    	
+    	local partition = function (pred, hash)
+  20	  local hits = {}
+  20	  local misses = {}
+    	
+  80	  for key, val in pairs(hash) do
+  60	    if pred(key, val) then
+  30	      hits[key] = val
+    	    else
+  30	      misses[key] = val
+    	    end
+    	  end
+    	
+  20	  return hits, misses
+    	end
+    	
+    	local all = function (pred, hash)
+ 122	  for key, val in pairs(hash) do
+  92	    if not pred(key, val) then
+  20	      return false
+    	    end
+    	  end
+    	
+  30	  return true
+    	end
+    	
+    	local any = function (fun, hash)
+ 110	  for key, val in pairs(hash) do
+  80	    if fun(key) or fun(val) then
+  20	      return true
+    	    end
+    	  end
+    	
+  30	  return false
+    	end
+    	
+    	local iskey = function (wanted, hash)
+  47	  for key, _ in pairs(hash) do
+  30	    if key == wanted then
+  10	      return true
+    	    end
+    	  end
+    	
+  17	  return false
+    	end
+    	
+    	local isval = function (wanted, hash)
+  45	  for _, val in pairs(hash) do
+  28	    if val == wanted then
+  10	      return true
+    	    end
+    	  end
+    	
+  17	  return false
+    	end
+    	
+    	local keys = function (hash)
+  10	  local ks = {}
+  40	  for k, _ in pairs(hash) do
+  30	    ks[#ks + 1] = k
+    	  end
+    	
+  10	  return ks
+    	end
+    	
+    	local values = function (hash)
+  10	  local vs = {}
+  40	  for _, v in pairs(hash) do
+  30	    vs[#vs + 1] = v
+    	  end
+    	
+  10	  return vs
+    	end
+    	
+  10	return {
+  10	  foreach = foreach,
+  10	  map = map,
+  10	  reduce = reduce,
+  10	  filter = filter,
+  10	  partition = partition,
+  10	  all = all,
+  10	  any = any,
+  10	  iskey = iskey,
+  10	  isval = isval,
+  10	  keys = keys,
+  10	  values = values,
+  10	  _VERSION = '1.0.0-1',
+  10	  _AUTHOR = 'Peter Aronoff',
+  10	  _URL = 'https://bitbucket.org/telemachus/tableutils',
+  10	  _LICENSE = 'BSD 3-Clause License',
+  10	}
+
+==============================================================================
+../src/listutils.lua
+==============================================================================
+    	--- tableutil/listutil: Utility functions for working with list-like tables
+    	--
+    	-- Peter Aronoff
+    	-- BSD 3-Clause License
+    	-- 2013-2015
+  10	local ipairs = ipairs
+    	
+    	local foreach = function (func, list)
+ 110	  for _, val in ipairs(list) do
+ 100	    func(val)
+    	  end
+    	end
+    	
+    	local foreach_withindex = function (func, list)
+  24	  for idx, val in ipairs(list) do
+   9	    func(val, idx)
+    	  end
+    	end
+    	
+  80	local map = function (func, list)
+  95	  local mapped = {}
+    	  -- We can't use for idx, val here, since a user could theoretically use map
+    	  -- as if it were filter. If they did this, and we used the original list's
+    	  -- indices, mapped would become a sparse table. We don't want that.
+ 115	  for _, val in ipairs(list) do
+ 112	    local res = func(val)
+ 104	    if res ~= nil then
+  75	      mapped[#mapped + 1] = res
+    	    end
+    	  end
+    	
+  15	  return mapped
+    	end
+    	
+   4	local foldl = function (func, accumulator, list)
+ 120	  for idx=1, #list do
+ 100	    accumulator = func(accumulator, list[idx])
+    	  end
+    	
+  20	  return accumulator
+    	end
+    	
+   4	local foldr = function (func, accumulator, list)
+ 115	  for idx=#list, 1, -1 do
+ 100	    accumulator = func(accumulator, list[idx])
+    	  end
+    	
+  15	  return accumulator
+    	end
+    	
+  80	local filter = function (pred, list)
+  55	  local found = {}
+    	  -- We can't use for idx, val here, since found[idx] inside the if clause
+    	  -- could yield the wrong results. E.g., found[1], found[2], found[4]. That
+    	  -- gives us a sparse array, which we do not want.
+ 127	  for _, val in ipairs(list) do
+ 104	    if pred(val) then
+  50	      found[#found + 1] = val
+    	    end
+    	  end
+    	
+  63	  return found
+    	end
+    	
+    	local partition = function (pred, list)
+  30	  local hits = {}
+  10	  local misses = {}
+  60	  for _, val in ipairs(list) do
+  50	    if pred(val) then
+  33	      hits[#hits + 1] = val
+    	    else
+  25	      misses[#misses + 1] = val
+    	    end
+    	  end
+    	
+  22	  return hits, misses
+    	end
+    	
+    	local zip = function (l1, l2)
+  15	  local zipped = {}
+  27	  local len = #l1
+  19	  if #l2 < len then len = #l2 end
+  40	  for idx = 1, len do
+  25	    zipped[idx] = { l1[idx], l2[idx] }
+    	  end
+    	
+  27	  return zipped
+    	end
+    	
+    	local stitch = function(l1, l2)
+  15	  local stitched = {}
+  27	  local len = #l1
+  19	  if #l2 < len then len = #l2 end
+  40	  for idx = 1, len do
+  25	    stitched[l1[idx]] = l2[idx]
+    	  end
+    	
+  23	  return stitched
+    	end
+    	
+    	local all = function (pred, list)
+ 117	  for _, val in ipairs(list) do
+  94	    if not pred(val) then
+  10	      return false
+    	    end
+    	  end
+    	
+  23	  return true
+    	end
+    	
+    	local any = function (pred, list)
+  87	  for _, val in ipairs(list) do
+  64	    if pred(val) then
+  10	      return true
+    	    end
+    	  end
+    	
+  19	  return false
+    	end
+    	
+    	local member = function (elem, list)
+  48	  for _, val in ipairs(list) do
+  34	    if val == elem then
+   5	      return true
+    	    end
+    	  end
+    	
+  50	  return false
+    	end
+    	
+    	local max = function(t)
+  10	  local maximum = t[1]
+  68	  for _, val in ipairs(t) do
+  54	    if val > maximum then
+   5	      maximum = val
+    	    end
+    	  end
+    	
+  50	  return maximum
+    	end
+    	
+    	local min = function(t)
+  10	  local minimum = t[1]
+  68	  for _, val in ipairs(t) do
+  54	    if val < minimum then
+  20	      minimum = val
+    	    end
+    	  end
+    	
+  50	  return minimum
+    	end
+    	
+   8	local sum = function (t)
+  14	  local total = 0
+  60	  for _, val in ipairs(t) do
+  50	    total = total + val
+    	  end
+    	
+  50	  return total
+    	end
+    	
+   8	local product = function (t)
+  14	  local result = 1
+  60	  for _, val in ipairs(t) do
+  54	    result = result * val
+    	  end
+    	
+  14	  return result
+    	end
+    	
+  10	return {
+  10	  foreach = foreach,
+  10	  foreach_withindex = foreach_withindex,
+  10	  map = map,
+  10	  foldl = foldl,
+  10	  reduce = foldl,
+  10	  foldr = foldr,
+  10	  filter = filter,
+  10	  partition = partition,
+  10	  all = all,
+  10	  any = any,
+  10	  member = member,
+  10	  zip = zip,
+  10	  max = max,
+  10	  min = min,
+  10	  sum = sum,
+   6	  product = product,
+   6	  stitch = stitch,
+   6	  _VERSION = '1.0.0-1',
+   6	  _AUTHOR = 'Peter Aronoff',
+   6	  _URL = 'https://bitbucket.org/telemachus/tableutils',
+   6	  _LICENSE = 'BSD 3-Clause License',
+   3	}
+
+==============================================================================
+Summary
+==============================================================================
+
+63	0	100.00%	../src/hashutils.lua
+100	0	100.00%	../src/listutils.lua
+------------------------
+163	0	100.00%	
