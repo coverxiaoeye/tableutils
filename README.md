@@ -1,4 +1,4 @@
-# tableutils [![Build Status](https://drone.io/bitbucket.org/telemachus/tableutils/status.png)](https://drone.io/bitbucket.org/telemachus/tableutils/latest) [![Coverage Status](https://coveralls.io/repos/telemachus/tableutils/badge.svg?branch=master&service=bitbucket)](https://coveralls.io/bitbucket/telemachus/tableutils?branch=master)
+# tableutils [![Build Status](https://drone.io/bitbucket.org/telemachus/tableutils/status.png)](https://drone.io/bitbucket.org/telemachus/tableutils/latest) [![codecov.io](http://codecov.io/bitbucket/telemachus/tableutils/coverage.svg?branch=master)](http://codecov.io/bitbucket/telemachus/tableutils?branch=master)
 
 Convenience methods for processing and testing tables. One set of utility
 methods for list-like tables and another for hash-like tables.

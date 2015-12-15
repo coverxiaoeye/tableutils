@@ -3,7 +3,7 @@
 for lua in lua5.1 lua5.2 lua5.3 luajit
 do
 	rm -rf $HOME/.lua ;
-	LUA="$lua" source "$CI/setenv_lua.sh" ;
+	LUA="$lua" source "$LUA_ENV/setenv_lua.sh" ;
 	lua -v ;
 	luarocks install tapered
 	luarocks install luacov
@@ -15,4 +15,6 @@ do
 	done
 done
 luacov
-luacov-coveralls -t "$COVERALLS_REPO_TOKEN"
+cp -v luacov.report.out ../
+cd ..
+bash <(curl -s https://codecov.io/bash)

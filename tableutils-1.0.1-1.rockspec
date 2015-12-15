@@ -1,9 +1,17 @@
+-- This file was automatically generated for the LuaDist project.
+
 package = 'tableutils'
-version = '1.0.0-1'
+version = '1.0.1-1'
+-- LuaDist source
 source = {
-  url = 'https://bitbucket.org/telemachus/tableutils/downloads/tableutils-v1.0.0-1.tar.gz',
-  dir = 'tableutils',
+  tag = "1.0.1-1",
+  url = "git://github.com/LuaDist2/tableutils.git"
 }
+-- Original source
+-- source = {
+--   url = 'https://bitbucket.org/telemachus/tableutils/downloads/tableutils-v1.0.1-1.tar.gz',
+--   dir = 'tableutils',
+-- }
 description = {
   summary = 'Set of general-utility functions for working with tables',
   detailed = [[
