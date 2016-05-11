@@ -25,11 +25,32 @@
 </ul>
 
 
-<p>Would you reather view the <a href="index.html">documentation</a>?</p>
+<h2><em>2.0.0-1</em> (May 1, 2016)</h2>
+
+<ul>
+<li>The informational fields are now functions that return strings. This is to
+prevent them from violating Lua recommendations about variables such as
+<code>_VERSION</code>. (I&rsquo;ve bumped the major version number since this is technically
+an API change, though for most users it will not require any changes on their
+end.)</li>
+</ul>
+
+
+<h2><em>2.0.0-2</em> (May 1, 2016)</h2>
+
+<ul>
+<li>The rockspec for 2.0.0-1 was pointing at the wrong tar.gz target.</li>
+<li>I realized, just a tiny bit too late, that the internal <code>version</code> function
+should not track the rockspec variant. It has nothing to do with the code
+itself, which should be separate.</li>
+</ul>
+
+
+<p>Would you rather view the <a href="index.html">documentation</a>?</p>
 
 <hr />
 
-<p>&copy; 2013-2015 Peter Aronoff. BSD 3-Clause license; see <a href="license.html">the license</a> for
+<p>&copy; 2013-2016 Peter Aronoff. BSD 3-Clause license; see <a href="license.html">the license</a> for
 details.</p>
 </body>
 </html>

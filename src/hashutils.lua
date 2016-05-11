@@ -114,6 +114,22 @@ local values = function (hash)
   return vs
 end
 
+local version = function ()
+  return "2.0.0"
+end
+
+local author = function ()
+  return "Peter Aronoff"
+end
+
+local url = function ()
+  return "https://bitbucket.org/telemachus/tableutils"
+end
+
+local license = function ()
+  return "BSD 3-Clause"
+end
+
 return {
   foreach = foreach,
   map = map,
@@ -126,8 +142,8 @@ return {
   isval = isval,
   keys = keys,
   values = values,
-  _VERSION = '1.0.0-1',
-  _AUTHOR = 'Peter Aronoff',
-  _URL = 'https://bitbucket.org/telemachus/tableutils',
-  _LICENSE = 'BSD 3-Clause License',
+  version = version,
+  author = author,
+  url = url,
+  license = license,
 }

@@ -36,14 +36,14 @@ t.is(lu.reduce(add, 0, {}), 0, 'reduce with an empty hash returns accumulator')
 local function isodd(_, v) return v % 2 ~= 0 end
 local function iseven(_, v) return v % 2 == 0 end
 
-t.same(lu.filter(isodd, base), {a = 1, c = 3,e = 5},
+t.same(lu.filter(isodd, base), {a = 1, c = 3, e = 5},
        'filter(isodd, {a = 1 .. f = 6}) is {a = 1, c = 3, e = 5}')
-t.same(lu.filter(iseven, base), {b = 2,d = 4, f = 6},
+t.same(lu.filter(iseven, base), {b = 2, d = 4, f = 6},
        'filter(iseven, {a = 1 .. f = 6}) is {b = 2, d = 4, f = 6}')
 t.same(lu.filter(iseven, {}), {}, 'filter an empty hash returns empty hash')
 
 local odds, evens = lu.partition(isodd, base)
-t.same({odds, evens}, {{a = 1, c = 3,e = 5}, {b = 2,d = 4, f = 6}},
+t.same({odds, evens}, {{a = 1, c = 3, e = 5}, {b = 2, d = 4, f = 6}},
        'partition(isodd, {a = 1 .. f = 6}) returns correct hashes')
 t.same({lu.partition(isodd, {})}, {{}, {}},
        'partition an empty hash returns two empty hashes')

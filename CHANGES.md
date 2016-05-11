@@ -11,13 +11,27 @@
 
 [codecov]: https://codecov.io
 
+## *2.0.0-1* (May 1, 2016)
 
-Would you reather view the [documentation][d]?
++ The informational fields are now functions that return strings. This is to
+  prevent them from violating Lua recommendations about variables such as
+  `_VERSION`. (I've bumped the major version number since this is technically
+  an API change, though for most users it will not require any changes on their
+  end.)
+
+## *2.0.0-2* (May 1, 2016)
+
++ The rockspec for 2.0.0-1 was pointing at the wrong tar.gz target.
++ I realized, just a tiny bit too late, that the internal `version` function
+  should not track the rockspec variant. It has nothing to do with the code
+  itself, which should be separate.
+
+Would you rather view the [documentation][d]?
 
 [d]: /README.md
 ---
 
-(c) 2013-2015 Peter Aronoff. BSD 3-Clause license; see [LICENSE.md][l] for
+(c) 2013-2016 Peter Aronoff. BSD 3-Clause license; see [LICENSE.md][l] for
 details.
 
 [l]: /LICENSE.md

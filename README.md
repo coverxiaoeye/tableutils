@@ -191,16 +191,15 @@ To access these methods, use `require 'hashutils'`.
 
 ## Varia
 
-The module provides four informational fields that return strings. They should
-be self-explanatory and are probably of little use to most people.
+The module provides four informational functions that return strings. Both sub-modules export the same four functions.
 
-+ `_AUTHOR`
++ `version() -- 2.0.0`
 
-+ `_VERSION`
++ `author() -- Peter Aronoff`
 
-+ `_LICENSE`
++ `url() -- https://bitbucket.org/telemachus/tapered`
 
-+ `_URL`
++ `license() -- BSD 3-Clause`
 
 ## Credits/See Also
 
@@ -230,7 +229,7 @@ All mistakes are mine. See [version history][c] for release details.
 
 ---
 
-(c) 2013-2015 Peter Aronoff. BSD 3-Clause license; see [LICENSE.md][li] for
+(c) 2013-2016 Peter Aronoff. BSD 3-Clause license; see [LICENSE.md][li] for
 details.
 
 [li]: /LICENSE.md

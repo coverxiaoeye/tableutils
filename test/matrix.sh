@@ -7,7 +7,6 @@ do
 	lua -v ;
 	luarocks install tapered
 	luarocks install luacov
-	luarocks install luacov-coveralls
 	for test in test-*.lua
 	do
 		lua -lluacov "$test"
